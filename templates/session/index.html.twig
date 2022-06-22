@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Sessions{% endblock %}
+
+{% block body %}
+
+<h2>Sessions</h2>
+<br>
+<button type="button" class="btn btn-success"> <i class="fa-solid fa-plus"></i> <a href ="{{ path('add_session') }}">Ajouter une session</a> </button>
+<br>
+<br>
+<table class="tabFormation">
+<thead>
+<tr>
+<th>Date de début</td>
+<th>Sessions</td>
+<th>Fiche informations</td>
+<th>Formation</td>
+</tr>
+</thead>
+<tbody>
+{% for session in sessions %}
+<tr>
+<td>{{ session.DateDebut | date('d/m/Y') }}</td>
+<td>{{ session.intitule }}</td>
+<td><div class="ficheInfo"><a href="{{ path('show_session', {'id': session.id}) }}"><i class="fa-solid fa-file-lines"></i></a></div></td>
+<td>{{ session.formations.intitule }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+    
+
+{% endblock %}

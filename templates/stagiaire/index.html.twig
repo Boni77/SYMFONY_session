@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Stagiaires{% endblock %}
+
+{% block body %}
+
+<h2>Stagiaires</h2>
+<br>
+{% if is_granted('ROLE_ADMIN') %}
+<button type="button" class="btn btn-success"> <i class="fa-solid fa-plus"></i> <a href ="{{ path('add_stagiaire') }}">Ajouter un stagiaire</a> </button> 
+{% else %}
+okkkk
+{% endif %}
+<br>
+<br>
+<table class="tabFormation">
+<thead>
+<tr>
+<th>Nom</td>
+<th>Prénom</td>
+<th>Sexe</td>
+<th>Date de naissance</td>
+<th>Email</td>
+<th>Téléphone</td>
+<th>Modifier</td>
+<th>Supprimer</td>
+</tr>
+</thead>
+<tbody>
+{% for stagiaire in stagiaires %}
+<tr>
+<td>{{ stagiaire.nom }}</td>
+<td>{{ stagiaire.prenom }}</td>
+<td>{{ stagiaire.sexe }}</td>
+<td>{{ stagiaire.birthday | date('d/m/Y')  }}</td>
+<td>{{ stagiaire.email}}</td>
+<td>{{ stagiaire.phone }}</td>
+<td><a href="{{ path('update_stagiaire', {'id' : stagiaire.id})}}"><div class="orange"><i class="fa-solid fa-pen-to-square"></i></div></a></td>
+<td><a href="{{ path('delete_stagiaire', {'id' : stagiaire.id})}}"><div class="rouge"><i class="fa-solid fa-trash-can"></i></div></a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+    
+
+{% endblock %}

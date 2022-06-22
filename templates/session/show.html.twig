@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session{% endblock %}
+
+{% block body %}
+
+<h2>{{session.intitule}}</h2>
+<br>
+<section>
+<p>Formateur référent : {{ session.formateur.nom }} {{ session.formateur.prenom }}</p>
+<br>
+<p>Date de début : {{session.DateDebut | date('d/m/Y') }}</p>
+<p>Date de fin : {{session.DateFin | date('d/m/Y') }}</p>
+<p>Nombre de place : {{session.NbPlaces}}</p>
+<p>Nombre de place disponible : {{session.NbPlacesRestantes}}</p>
+<p>Nombre de module : {{ session.programmes | length }}</p>
+</section>
+<br>
+
+<div class="test">
+<aside class="aside aside-1">
+<h4>Stagiaires inscrits <span class="badge badge-info">{{ session.stagiaires | length }}</span></h4>
+<table>
+        <thead>
+            <tr>
+                <th>Stagiaire</th>
+                <th>Désinscrire</th>
+            </tr>
+        </thead>
+            <tr>
+{% if session.stagiaires | length > 0 %}
+    {% for stagiaire in session.stagiaires %}
+        <td><a href="{{ path('show_stagiaire', {'id': stagiaire.id}) }}">{{ stagiaire.nom }} {{stagiaire.prenom}}</a></td>
+        <td><a href="{{ path('delete_stagiaire_session', {'idSession' : session.id , 'idStagiaire' : stagiaire.id})}}"><div class="rouge"><i class="fa-solid fa-user-minus"></i></div></a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+<br>
+<aside class="aside aside-3">
+<h4>Stagiaires non inscrits <span class="badge badge-info">{{ nonInscrits | length }}</span></h4>
+<table>
+        <thead>
+            <tr>
+                <th>Stagiaire</th>
+                <th>Inscription</th>
+            </tr>
+        </thead>
+            <tr>
+{% if nonInscrits | length > 0 %}
+    {% for stagiaire in nonInscrits %}
+        <td>{{ stagiaire.nom }} {{stagiaire.prenom}}</td>
+        <td><a href="{{ path('programmer_session', {'idSession' : session.id , 'idStagiaire' : stagiaire.id})}}"><div class="vert"><i class="fa-solid fa-user-plus"></i></div></a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+</aside>
+
+</aside>
+<aside class="aside aside-2">
+<h4>Programme <span class="badge badge-info">{{ session.programmes | length }}</span></h4> <div class="vert"><h6>Ajouter un programme <a href="{{ path('add_programme') }}"><i class="fa-solid fa-calendar-plus"></i></a></h6></div>
+ <table>
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>Catégorie</th>
+                <th>Durée</th>
+                <th>Déprogrammer</th>
+            </tr>
+        </thead>
+            <tr>
+{% if session.programmes | length > 0 %}
+    {% for programme in session.programmes %}
+        <td>{{ programme.module }}</td>
+        <td>Catégorie</td>
+        <td> {{ programme.duree }}</td>
+        <td><a href="{{ path('delete_programme_session', {'idSession' : session.id , 'idProgramme' : programme.id})}}"><div class="rouge"><i class="fa-solid fa-eraser"></i></div></a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endif %}
+</aside>
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<h2>Sessions</h2>
+<br>
+<br>
+<table>
+<thead>
+<tr>
+<th>Sessions en cours</td>
+<th>Date début</td>
+<th>Date fin</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>en cours</td>
+<td>en cours</td>
+<td>en cours</td>
+</tr>
+</tbody>
+</table>
+
+
+<br>
+<table>
+<thead>
+<tr>
+<th>Sessions à venir</td>
+<th>Date début</td>
+<th>Date fin</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>en cours</td>
+<td>en cours</td>
+<td>en cours</td>
+</tr>
+</tbody>
+</table>
+
+<br>
+<table>
+<thead>
+<tr>
+<th>Sessions passées</td>
+<th>Date début</td>
+<th>Date fin</td>
+</tr>
+</thead>
+<tbody>
+{% for sessionpa in sessionsPassees %}
+<tr>
+<td>{{sessionpa.Intitule}}</td>
+<td>{{sessionpa.DateDebut | date('d/m/Y') }}</td>
+<td>{{sessionpa.DateFin | date('d/m/Y') }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+
+{% endblock %}

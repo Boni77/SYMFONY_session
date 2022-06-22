@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session{% endblock %}
+
+{% block body %}
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Sessions</th>
+            <th>Places</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+        </tr>
+    </thead>
+        <tr>
+            {% if formation.sessions | length > 0 %}
+            {% for session in formation.sessions %}
+            <td><a href="{{ path('show_session', {'id': session.id}) }}">{{ session.intitule }}</a></td>
+            <td>{{ session.NbPlaces }}</td>
+            <td>{{ session.DateDebut | date('d/m/Y') }}</td>
+            <td>{{ session.DateFin | date('d/m/Y') }}</td>
+        </tr>
+        {% endfor %}
+</table>
+{% else %}
+    <p>Aucune session !</p>
+    {% endif %}
+{% endblock %}
+
+
